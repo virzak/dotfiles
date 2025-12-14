@@ -1,13 +1,16 @@
 mkdir -p /home/vscode/.local/bin
 
+INSTALL_DIR=$([ "$(id -u)" -eq 0 ] && echo /usr/local/bin || echo "$HOME/.local/bin")
+SHARE_DIR=$([ "$(id -u)" -eq 0 ] && echo /usr/local/share || echo "$HOME/.local/share")
+
 DIFFT_VERSION="0.67.0"
-if [ ! -f ~/.local/bin/difft ]; then
+if [ ! -f $INSTALL_DIR/difft ]; then
   echo "installing difftastic ${DIFFT_VERSION}"
   curl -Lo /tmp/difft.tar.gz https://github.com/Wilfred/difftastic/releases/download/${DIFFT_VERSION}/difft-x86_64-unknown-linux-gnu.tar.gz
-  tar xvf /tmp/difft.tar.gz --directory ~/.local/bin
+  tar xvf /tmp/difft.tar.gz --directory $INSTALL_DIR
 fi
 
-curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin
+curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $INSTALL_DIR
 
 # Ensure everyone can use docker if available
 if [ -S /var/run/docker.sock ]; then
@@ -18,14 +21,14 @@ else
 fi
 
 # Allow act
-curl https://raw.githubusercontent.com/nektos/act/master/install.sh | BINDIR=~/.local/bin bash
+curl https://raw.githubusercontent.com/nektos/act/master/install.sh | BINDIR=$INSTALL_DIR bash
 
 echo 'eval "$(oh-my-posh --init --shell bash --config ~/.vityusha-ohmyposhv3-v2.json)"' >>~/.bashrc
 
 # Fonts
-mkdir -p $HOME/.local/share/fonts
+mkdir -p $SHARE_DIR/fonts
 curl -Lo /tmp/Meslo.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Meslo.zip
-unzip -f /tmp/Meslo.zip -d ~/.local/share/fonts
+unzip -f /tmp/Meslo.zip -d $SHARE_DIR/fonts
 rm /tmp/Meslo.zip
 
 pathToCheck="$HOME/dotfiles"
