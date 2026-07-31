@@ -23,6 +23,10 @@ fi
 # Allow act
 curl https://raw.githubusercontent.com/nektos/act/master/install.sh | BINDIR=$INSTALL_DIR bash
 
+# Container images tend to set PATH explicitly, which beats the ~/.profile logic that
+# would otherwise add ~/.local/bin. Put INSTALL_DIR on PATH before anything needs it.
+echo "export PATH=\"$INSTALL_DIR:\$PATH\"" >>~/.bashrc
+
 echo 'eval "$(oh-my-posh --init --shell bash --config ~/.vityusha-ohmyposhv3-v2.json)"' >>~/.bashrc
 
 # Fonts
