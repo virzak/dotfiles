@@ -1,4 +1,4 @@
-mkdir -p /home/vscode/.local/bin
+mkdir -p "$HOME/.local/bin"
 
 INSTALL_DIR=$([ "$(id -u)" -eq 0 ] && echo /usr/local/bin || echo "$HOME/.local/bin")
 SHARE_DIR=$([ "$(id -u)" -eq 0 ] && echo /usr/local/share || echo "$HOME/.local/share")
@@ -32,7 +32,7 @@ echo 'eval "$(oh-my-posh --init --shell bash --config ~/.vityusha-ohmyposhv3-v2.
 # Fonts
 mkdir -p $SHARE_DIR/fonts
 curl -Lo /tmp/Meslo.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Meslo.zip
-unzip -f /tmp/Meslo.zip -d $SHARE_DIR/fonts
+unzip -o /tmp/Meslo.zip -d $SHARE_DIR/fonts
 rm /tmp/Meslo.zip
 
 curl -Lo "/tmp/Ubuntu Mono derivative Powerline.ttf" https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
@@ -62,9 +62,12 @@ ln -sfv $dotFilesDir/.config/git/ignore ~/.config/git/ignore
 #dotnet tool install dotnet-outdated-tool --global --ignore-failed-sources
 #dotnet tool install dotnet-ef --global --ignore-failed-sources
 
-if command -v node >/dev/null 2>&1 && command -v yarn >/dev/null 2>&1; then
-  # yarn tools
-  yarn global add npm-check-updates
+# Global CLI tools. Use npm, not yarn/pnpm: npm's global bin dir is already on
+# PATH in this image (yarn's ~/.yarn/bin is not, and pnpm needs a `pnpm setup`
+# bootstrap first), and npm's resolver honours "engines" so it picks the newest
+# ncu the installed Node actually supports instead of failing outright.
+if command -v npm >/dev/null 2>&1; then
+  npm install -g npm-check-updates
 fi
 
 # Claude Code (native installer, lands in ~/.local/bin)
