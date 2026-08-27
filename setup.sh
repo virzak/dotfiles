@@ -35,6 +35,9 @@ curl -Lo /tmp/Meslo.zip https://github.com/ryanoasis/nerd-fonts/releases/downloa
 unzip -f /tmp/Meslo.zip -d $SHARE_DIR/fonts
 rm /tmp/Meslo.zip
 
+curl -Lo "/tmp/Ubuntu Mono derivative Powerline.ttf" https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
+mv "/tmp/Ubuntu Mono derivative Powerline.ttf" $SHARE_DIR/fonts
+
 pathToCheck="$HOME/dotfiles"
 
 if [ -d "$pathToCheck" ]; then
