@@ -66,3 +66,9 @@ if command -v node >/dev/null 2>&1 && command -v yarn >/dev/null 2>&1; then
   # yarn tools
   yarn global add npm-check-updates
 fi
+
+# Claude Code (native installer, lands in ~/.local/bin)
+if ! command -v claude >/dev/null 2>&1; then
+  echo "installing Claude Code"
+  curl -fsSL https://claude.ai/install.sh | bash
+fi
