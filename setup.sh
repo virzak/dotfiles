@@ -51,6 +51,7 @@ mkdir -p $HOME/.config/Code/User
 ln -sfv $dotFilesDir/settings.json ~/.vscode-remote/data/Machine/settings.json
 ln -sfv $dotFilesDir/.actrc ~/.actrc
 ln -sfv $dotFilesDir/.gitconfig ~/.gitconfig
+ln -sfv $dotFilesDir/.inputrc ~/.inputrc
 ln -sfv $dotFilesDir/.vityusha-ohmyposhv3-v2.json ~/.vityusha-ohmyposhv3-v2.json
 ln -sfv $dotFilesDir/difftool.sh ~/difftool.sh
 ln -sfv $dotFilesDir/gitconflict.sh ~/gitconflict.sh

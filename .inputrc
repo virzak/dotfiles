@@ -1,0 +1,41 @@
+# Readline configuration - bash's counterpart to PSReadLine.
+#
+# Try it without installing anything:
+#   INPUTRC=~/dotfiles/.inputrc bash
+# Or load it into the shell you are already in:
+#   bind -f ~/dotfiles/.inputrc
+
+# Keep the distro defaults, then override. Needed explicitly because setting
+# INPUTRC stops readline reading /etc/inputrc on its own.
+$include /etc/inputrc
+
+# Up/down search history for what has already been typed instead of walking
+# every entry. This is the PSReadLine up-arrow behaviour and the single biggest
+# thing missing from stock bash.
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+# Same again for terminals that send application-mode sequences.
+"\eOA": history-search-backward
+"\eOB": history-search-forward
+
+# Word-wise movement with ctrl+left / ctrl+right.
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+
+# Completion behaviour.
+set completion-ignore-case on
+set completion-map-case on           # treat - and _ as interchangeable
+set show-all-if-ambiguous on         # first tab lists matches, no second press
+set menu-complete-display-prefix on  # insert the common prefix before cycling
+
+# Tab cycles through matches, like PSReadLine's MenuComplete. Comment these two
+# out to keep bash's default "complete and list" instead.
+"\t": menu-complete
+"\e[Z": menu-complete-backward       # shift+tab cycles backwards
+
+# Nicer completion listings.
+set visible-stats on                 # append / to dirs, * to executables
+set colored-stats on
+set colored-completion-prefix on
+
+set bell-style none
