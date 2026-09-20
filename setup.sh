@@ -57,6 +57,9 @@ ln -sfv $dotFilesDir/difftool.sh ~/difftool.sh
 ln -sfv $dotFilesDir/gitconflict.sh ~/gitconflict.sh
 mkdir -p ~/.config/git
 ln -sfv $dotFilesDir/.config/git/ignore ~/.config/git/ignore
+# pwsh reads $PROFILE from ~/.config/powershell on Linux
+mkdir -p ~/.config/powershell
+ln -sfv $dotFilesDir/Microsoft.PowerShell_profile.ps1 ~/.config/powershell/Microsoft.PowerShell_profile.ps1
 
 # dotnet tools
 #dotnet tool install dotnet-outdated-tool --global --ignore-failed-sources
